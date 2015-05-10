@@ -1,0 +1,33 @@
+<template name="results">
+	<div class="container">
+		{{> header currentPage = "Results"}}
+
+		<button id="complete_values" type="button" class="btn btn-primary">Confirm Evaluation</button>
+
+		<a class="btn btn-primary pull-right right-buffer" href="{{pathFor 'probability'}}">
+			<i class="fa fa-chevron-circle-left"></i> Probability Matrix
+		</a>
+
+		<div class="top-buffer">
+			<table>
+				<tr><td>Influence:</td><td>&nbsp;</td><td>{{calculations.influence}}</td></tr>
+				<tr><td>Dependence:</td><td>&nbsp;</td><td>{{calculations.dependence}}</td></tr>
+				<tr><td>Vector 1:</td><td>&nbsp;</td><td>{{calculations.vector1}}</td></tr>
+				<tr><td>Vector 2:</td><td>&nbsp;</td><td>{{calculations.vector2}}</td></tr>
+				<tr><td>Vector 3:</td><td>&nbsp;</td><td>{{calculations.vector3}}</td></tr>
+				<tr><td>Vector 4:</td><td>&nbsp;</td><td>{{calculations.vector4}}</td></tr>
+				<tr><td>Evi:</td><td>&nbsp;</td><td>{{calculations.evi}}</td></tr>
+				<tr><td>Probability:</td><td>&nbsp;</td><td>{{calculations.probability}}</td></tr>
+				<tr><td>Inf/Dep Data:</td><td>&nbsp;</td><td>{{calculations.infDepData}}</td></tr>
+			</table>
+		</div>
+
+		<div class="top-buffer">
+			{{> highchartsHelper chartId="influence_dependence" chartWidth="100%" charHeight="100%" chartObject=influenceDependence}}
+		</div>
+
+		<div class="top-buffer">
+			{{> highchartsHelper chartId="probability" chartWidth="100%" charHeight="100%" chartObject=probability}}
+		</div>
+	</div>
+</template>

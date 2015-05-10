@@ -1,0 +1,66 @@
+<template name="alternatives">
+	<div class="container">
+		{{> header currentPage="Alternatives"}}
+
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAlternative">
+			<i class="fa fa-plus-circle"></i> Add Alternative
+		</button>
+
+		<a class="btn btn-primary pull-right" href="{{pathFor 'inviteActors'}}">
+			Invite Actors <i class="fa fa-chevron-circle-right"></i>
+		</a>
+		<a class="btn btn-primary pull-right right-buffer" href="{{pathFor 'objectives'}}">
+			<i class="fa fa-chevron-circle-left"></i> Add Objectives
+		</a>
+
+		{{>alternativesTable}}
+	</div>
+
+	{{>addAlternative}}
+</template>
+
+<template name="alternativesTable">
+	<table class="table table-bordered table-striped table-hover top-buffer">
+		<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{#each alternativeList}}
+			<tr class="objectiveRow">
+				<td>{{name}}</td>
+				<td>{{description}}</td>
+			</tr>
+		{{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="insertAlternativeForm">
+	{{> quickForm collection="Alternatives" id="insertAlternativeForm" type="insert" buttonContent="Save" doc=defaultValues}}
+</template>
+
+<template name="addAlternative">
+	<div id="addAlternative" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">Close</span>
+					</button>
+					<h3>Add Alternative</h3>
+				</div>
+				<div class="modal-body">
+					{{>insertAlternativeForm}}
+				</div>
+				<!--<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button id="save_alt" type="button" class="btn btn-primary">Save</button>
+				</div>-->
+			</div>
+		</div>
+	</div>
+</template>

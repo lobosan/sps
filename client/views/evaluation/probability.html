@@ -1,0 +1,73 @@
+<template name="probability">
+	<div class="container">
+        {{> header currentPage = "Probability Matrix"}}
+
+		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseObjectives" aria-expanded="false" aria-controls="collapseObjectives">
+			Show Objectives
+		</button>
+		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseAlternatives" aria-expanded="false" aria-controls="collapseAlternatives">
+			Show Alternatives
+		</button>
+		<button id="remove-cm" type="button" class="btn btn-primary">Remove all</button>
+
+		<a class="btn btn-primary pull-right" href="{{pathFor 'results'}}">
+			Results <i class="fa fa-chevron-circle-right"></i>
+		</a>
+
+		<a class="btn btn-primary pull-right right-buffer" href="{{pathFor 'connectivity'}}">
+			<i class="fa fa-chevron-circle-left"></i> Connectivity Matrix
+		</a>
+
+		{{> objectivesAccordion}}
+		{{> alternativesAccordion}}
+
+		<div class="handsontable top-buffer" id="probability-matrix">
+		</div>
+	</div>
+</template>
+
+<template name="objectivesAccordion">
+	<div class="collapse" id="collapseObjectives">
+		<table class="table table-bordered table-striped table-hover top-buffer">
+			<thead>
+			<tr>
+				<th>Objective</th>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{#each objectivesList}}
+				<tr class="objectiveRow">
+					<td class="col-md-1">Obj{{index}}</td>
+					<td class="col-md-4">{{name}}</td>
+					<td class="col-md-7">{{description}}</td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+	</div>
+</template>
+
+<template name="alternativesAccordion">
+	<div class="collapse" id="collapseAlternatives">
+		<table class="table table-bordered table-striped table-hover top-buffer">
+			<thead>
+			<tr>
+				<th>Alternative</th>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{#each alternativesList}}
+				<tr class="objectiveRow">
+					<td class="col-md-1">Alt{{index}}</td>
+					<td class="col-md-4">{{name}}</td>
+					<td class="col-md-7">{{description}}</td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+	</div>
+</template>

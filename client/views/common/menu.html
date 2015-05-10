@@ -1,0 +1,33 @@
+<template name="menu">
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="{{pathFor 'homepage'}}">
+					<i id="logo-img"></i> {{appName}}
+				</a>
+			</div>
+
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					{{#if currentUser}}
+						<li><a href="{{pathFor 'scenarios'}}"><i class="glyphicon glyphicon-road"></i> Scenarios</a></li>
+						<li><a href="{{pathFor 'objectives'}}"><i class="glyphicon glyphicon-check"></i> Objectives</a></li>
+						<li><a href="{{pathFor 'alternatives'}}"><i class="glyphicon glyphicon-transfer"></i> Alternatives</a></li>
+						<li><a href="{{pathFor 'inviteActors'}}"><i class="glyphicon glyphicon-envelope"></i> Guests</a></li>
+						{{#if isAdmin}}
+						<li><a href="{{pathFor 'adminScenario'}}"><i class="glyphicon glyphicon-flag"></i> Admin</a></li>
+						{{/if}}
+						{{#if equal evaluateScenario.state "Started"}}
+						<li><a href="{{pathFor 'connectivity'}}"><i class="glyphicon glyphicon-th"></i> Evaluation</a></li>
+						{{/if}}
+					{{/if}}
+					<li>{{> loginButtons}}</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</template>
