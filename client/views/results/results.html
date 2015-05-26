@@ -10,17 +10,17 @@
 			<i class="fa fa-chevron-circle-left"></i> Probability Matrix
 		</a>
 
-		<div class="turn-result">
-			<form>
-				<label for="turn">Turn: </label>
-				<select name="turn" id="turn">
+		<form class="form-inline">
+			<div class="form-group">
+				<label for="turn" class="control-label">Turn: </label>
+				<select name="turn" id="turn" class="form-control">
 					<option value="" selected>Select one</option>
 					{{#each turns}}
-					<option value="{{turn}}">{{turn}}</option>
+						<option value="{{turn}}">{{turn}}</option>
 					{{/each}}
 				</select>
-			</form>
-		</div>
+			</div>
+		</form>
 
 		<div id="influence-dependence" class="top-buffer"></div>
 
