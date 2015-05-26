@@ -1,9 +1,7 @@
-Template.results.probability = function() {
-    var results = Template.instance();
-    var calculations = results.calculations();
-
-    return {
+buildProbabilityReactive = function (probability) {
+    return new Highcharts.Chart({
         chart: {
+            renderTo: 'probability',
             type: 'column'
         },
         title: {
@@ -23,7 +21,7 @@ Template.results.probability = function() {
                     fontSize: '13px',
                     fontFamily: 'Verdana, sans-serif'
                 },
-                formatter: function() {
+                formatter: function () {
                     return 'a' + (parseInt(this.value) + 1);
                 }
             }
@@ -34,7 +32,7 @@ Template.results.probability = function() {
                 text: 'Probability'
             },
             labels: {
-                formatter: function() {
+                formatter: function () {
                     return this.value + "%";
                 }
             },
@@ -49,7 +47,6 @@ Template.results.probability = function() {
         },
         series: [{
             name: 'Probability',
-            data: calculations.probability,
             dataLabels: {
                 enabled: true,
                 color: '#FFFFFF',
@@ -60,7 +57,8 @@ Template.results.probability = function() {
                     fontSize: '13px',
                     fontFamily: 'Helvetica, Arial, Verdana, sans-serif'
                 }
-            }
+            },
+            data: probability
         }]
-    };
-};
+    });
+}

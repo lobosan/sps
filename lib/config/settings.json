@@ -1,0 +1,7 @@
+{
+    "public": {
+        "persistent_session": {
+            "clear_on_signout": true
+        }
+    }
+}

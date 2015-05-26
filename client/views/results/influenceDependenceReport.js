@@ -1,11 +1,9 @@
-Template.results.influenceDependence = function() {
-    var results = Template.instance();
-    var calculations = results.calculations();
-    var scenarioTurn = Scenarios.findOne({_id: Session.get('active_scenario')}).turn;
-    var numObj = ConnectivityMatrix.find({scenario_id: Session.get('active_scenario'), turn: scenarioTurn, user_id: Meteor.userId()}, {sort: {created_at: 1}}).count();
+buildInfluenceDependenceReactive = function (infDepData) {
+    var numObj = ConnectivityMatrix.find({scenario_id: Session.get('active_scenario'), turn: Session.get('turn'), user_id: Meteor.userId()}, {sort: {created_at: 1}}).count();
 
-    return {
+    return new Highcharts.Chart({
         chart: {
+            renderTo: 'influence-dependence',
             type: 'scatter'
         },
         title: {
@@ -42,13 +40,7 @@ Template.results.influenceDependence = function() {
             }]
         },
         legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 3,
-            y: 5,
-            floating: true,
-            borderWidth: 1
+            enabled: false
         },
         plotOptions: {
             scatter: {
@@ -77,7 +69,7 @@ Template.results.influenceDependence = function() {
         series: [{
             name: 'Influence',
             color: 'rgba(223, 83, 83, .5)',
-            data: calculations.infDepData
+            data: infDepData
         }]
-    };
-};
+    });
+}
