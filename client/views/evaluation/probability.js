@@ -25,6 +25,13 @@ Template.alternativesAccordion.helpers({
 });
 
 Template.probability.rendered = function () {
+
+    var elemObj = this.find('.js-switch-obj');
+    var initObj = new Switchery(elemObj);
+
+    var elemAlt = this.find('.js-switch-alt');
+    var initAlt = new Switchery(elemAlt);
+
     var myData = [];  // Need this to create instance
     var container = document.getElementById('probability-matrix');
 
@@ -86,5 +93,27 @@ Template.probability.events({
         Meteor.call('removeAllProbMat');
         Scenarios.update({_id: Session.get('active_scenario')}, {$set: {state: 'Open', turn: 0}});
         Router.go('adminScenario');
+    }
+});
+
+Template.switcheryObj.events({
+    'change .js-switch-obj': function (evt) {
+        var checked = $(evt.target)[0].checked;
+        if (checked) {
+            $('#collapseObjectives').collapse('show');
+        } else {
+            $('#collapseObjectives').collapse('hide');
+        }
+    }
+});
+
+Template.switcheryAlt.events({
+    'change .js-switch-alt': function (evt) {
+        var checked = $(evt.target)[0].checked;
+        if (checked) {
+            $('#collapseAlternatives').collapse('show');
+        } else {
+            $('#collapseAlternatives').collapse('hide');
+        }
     }
 });

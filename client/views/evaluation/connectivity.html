@@ -2,10 +2,9 @@
 	<div class="container">
         {{> header currentPage = "Connectivity Matrix"}}
 
-		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseObjectives" aria-expanded="false" aria-controls="collapseObjectives">
-			Show Objectives
-		</button>
-		<button id="remove-cm" type="button" class="btn btn-primary">Remove all</button>
+		Objectives {{> switcheryObj}}
+
+		<!--<button id="remove-cm" type="button" class="btn btn-primary">Remove all</button>-->
 
 		<a class="btn btn-primary pull-right" href="{{pathFor 'probability'}}">
 			Probability Matrix <i class="fa fa-chevron-circle-right"></i>

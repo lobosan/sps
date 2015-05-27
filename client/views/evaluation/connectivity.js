@@ -1,4 +1,8 @@
 Template.connectivity.rendered = function () { // Runs when the DOM is ready
+
+    var elem = this.find('.js-switch-obj');
+    var init = new Switchery(elem);
+
     var myData = [];  // Need this to create instance
     var container = document.getElementById('connectivity-matrix');
 
@@ -36,12 +40,12 @@ Template.connectivity.rendered = function () { // Runs when the DOM is ready
             }
             return cellProperties;
         },
-        afterChange: function (change, source) {  // "change" is an array of arrays.
+        afterChange: function (change, source) {  // 'change' is an array of arrays.
             if (source !== 'loadData') {  // Don't need to run this when data is loaded
                 for (i = 0; i < change.length; i++) {   // For each change, get the change info and update the record
                     var rowNum = change[i][0]; // Which row it appears on Handsontable
                     var row = myData[rowNum];  // Now we have the whole row of data, including _id
-                    var key = change[i][1];  // Handsontable docs calls this "prop"
+                    var key = change[i][1];  // Handsontable docs calls this 'prop'
                     var oldVal = change[i][2];
                     var newVal = change[i][3];
                     var setModifier = {$set: {}};   // Need to build $set object
