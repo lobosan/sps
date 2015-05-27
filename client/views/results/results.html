@@ -13,14 +13,21 @@
 		<form class="form-inline">
 			<div class="form-group">
 				<label for="turn" class="control-label">Turn: </label>
-				<select name="turn" id="turn" class="form-control">
+				<select name="turn" id="turn" class="form-control switcher-separator">
 					<option value="" selected>Select one</option>
 					{{#each turns}}
 						<option value="{{turn}}">{{turn}}</option>
 					{{/each}}
 				</select>
+
+				Objectives <span class="switcher-separator">{{> switcheryObj}}</span>
+
+				Alternatives {{> switcheryAlt}}
 			</div>
 		</form>
+
+		{{> objectivesAccordion}}
+		{{> alternativesAccordion}}
 
 		<div id="influence-dependence" class="top-buffer"></div>
 

@@ -10,6 +10,12 @@ Template.results.helpers({
 });
 
 Template.results.onRendered(function () {
+    var elemObj = this.find('.js-switch-obj');
+    var initObj = new Switchery(elemObj);
+
+    var elemAlt = this.find('.js-switch-alt');
+    var initAlt = new Switchery(elemAlt);
+
     Tracker.autorun(function () {
         if (this.$('#turn').val() == '')
             Session.set('turn', Scenarios.findOne({_id: Session.get('active_scenario')}).turn);
