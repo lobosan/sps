@@ -1,6 +1,4 @@
 <template name="adminScenario">
-	{{> notifications}}
-
 	{{> header currentPage="Admin Scenario"}}
 
 	<div class="bottom-buffer">
@@ -22,8 +20,8 @@
 
 		<!--<button type="button" class="btn btn-success {{!selected scenarioDetailsAdmin.state "Finished" "active"}}">Finished</button>-->
 
-		<a class="btn btn-primary pull-right" href="{{pathFor 'inviteActors'}}">
-			<i class="fa fa-chevron-circle-left"></i> Invite Actors
+		<a class="btn btn-default pull-right" href="{{pathFor 'inviteActors'}}">
+			<i class="fa fa-angle-double-left"></i> Invite Actors
 		</a>
 	</div>
 

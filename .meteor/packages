@@ -21,8 +21,8 @@ jquery
 momentjs:moment
 manuelschoebel:wait-on-lib
 iron:router
-gfk:notifications
 email
 maazalik:highcharts
 abpetkov:switchery
 sacha:spin
+chrismbeckett:toastr

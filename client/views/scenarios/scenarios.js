@@ -84,6 +84,10 @@ Template.scenarioRow.events({
 
 AutoForm.hooks({
     insertScenarioForm: {
+        onSuccess: function (operation, result, template) {
+            toastr.options = {"timeOut": "3000", "progressBar": true};
+            toastr.success('The scenario has been created successfully');
+        },
         after: {
             insert: function (error, result, template) {
                 if (!error) {

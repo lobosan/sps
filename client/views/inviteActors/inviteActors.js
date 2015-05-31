@@ -41,10 +41,12 @@ Template.inviteActors.events({
                 html,
                 function(err) {
                     if (err) {
-                        Notifications.error('Error', 'Uh oh, something went wrong. ' + err, options={timeout: 3500});
+                        toastr.options = {"timeOut": "4000", "progressBar": true};
+                        toastr.error('ERROR: Uh oh, something went wrong');
                     } else {
                         Meteor.call('scenarioHasActors', Session.get('active_scenario'), userids);
-                        Notifications.info('Success', 'Invitations sent to actors', options={timeout: 3500});
+                        toastr.options = {"timeOut": "3000", "progressBar": true};
+                        toastr.success('The invitation has been sent to the guests successfully');
                     }
                 }
             );

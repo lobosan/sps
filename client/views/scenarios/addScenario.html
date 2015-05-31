@@ -18,5 +18,10 @@
 </template>
 
 <template name="insertScenarioForm">
-  {{> quickForm collection="Scenarios" id="insertScenarioForm" type="insert" buttonContent="Save"}}
+	{{#autoForm collection='Scenarios' id='insertScenarioForm' type='insert'}}
+		{{> afQuickField name='name'}}
+		{{> afQuickField name='description'}}
+		{{> afQuickField name='scope'}}
+		<button type='submit' class='btn btn-success bottom-buffer'>Save</button>
+	{{/autoForm}}
 </template>
