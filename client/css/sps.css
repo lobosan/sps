@@ -209,6 +209,17 @@ h3, .h3 {
 .highcharts-title {
 	color: #5B5B5B !important;
 	fill: #5B5B5B !important;
+	position: absolute !important;
+	left: 20px !important;
+}
+
+.highcharts-xaxis-labels > text {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+	font-size: 11px !important;
+}
+
+.highcharts-data-labels > g > text > tspan {
+	text-shadow: rgb(0, 0, 0) 0px 0px 2px, rgb(0, 0, 0) 0px 0px 2px !important;
 }
 
 .top-buffer-medium {

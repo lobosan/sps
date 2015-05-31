@@ -28,6 +28,8 @@ buildProbabilityReactive = function (probability) {
                 enabled: true,
                 text: 'Probability'
             },
+            gridLineWidth: 0,
+            minorGridLineWidth: 0,
             labels: {
                 formatter: function () {
                     return this.value + "%";
@@ -44,7 +46,8 @@ buildProbabilityReactive = function (probability) {
         },
         series: [{
             name: 'Probability',
-            color: 'rgba(72,194,169,0.8)',
+            color: 'rgba(126,167,181,0.8)',
+            //color: 'rgba(72,194,169,0.8)',
             dataLabels: {
                 enabled: true,
                 color: '#FFFFFF',
@@ -53,7 +56,7 @@ buildProbabilityReactive = function (probability) {
                 y: 30, // pixels down from the top
                 style: {
                     fontSize: '13px',
-                    fontFamily: 'Helvetica, Arial, Verdana, sans-serif'
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                 }
             },
             data: probability
@@ -62,4 +65,4 @@ buildProbabilityReactive = function (probability) {
             enabled: false
         }
     });
-}
+};

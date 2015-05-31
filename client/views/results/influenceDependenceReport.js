@@ -14,8 +14,14 @@ buildInfluenceDependenceReactive = function (infDepData) {
                 enabled: true,
                 text: 'Dependence'
             },
+            lineWidth: 0,
+            minorGridLineWidth: 0,
+            lineColor: 'transparent',
+            minorTickLength: 0,
+            tickLength: 0,
             min: 0,
             max: numObj,
+            tickInterval: 1,
             plotLines: [{
                 color: '#DDD',
                 value: numObj / 2,
@@ -29,6 +35,7 @@ buildInfluenceDependenceReactive = function (infDepData) {
             },
             min: 0,
             max: numObj,
+            tickInterval: 1,
             gridLineColor: 'transparent',
             plotLines: [{
                 value: numObj / 2,
@@ -65,11 +72,11 @@ buildInfluenceDependenceReactive = function (infDepData) {
         },
         series: [{
             name: 'Influence',
-            color: 'rgba(72,194,169,0.8)',
+            color: 'rgba(126,167,181,0.8)',
             data: infDepData
         }],
         credits: {
             enabled: false
         }
     });
-}
+};
