@@ -7,9 +7,6 @@ buildProbabilityReactive = function (probability) {
         title: {
             text: 'Probability'
         },
-        subtitle: {
-            text: Meteor.user().username
-        },
         xAxis: {
             title: {
                 enabled: true,
@@ -59,6 +56,9 @@ buildProbabilityReactive = function (probability) {
                 }
             },
             data: probability
-        }]
+        }],
+        credits: {
+            enabled: false
+        }
     });
 }

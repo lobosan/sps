@@ -7,10 +7,7 @@ buildInfluenceDependenceReactive = function (infDepData) {
             type: 'scatter'
         },
         title: {
-            text: 'Influence / Dependence'
-        },
-        subtitle: {
-            text: Meteor.user().username
+            text: 'Influence - Dependence'
         },
         xAxis: {
             title: {
@@ -20,7 +17,7 @@ buildInfluenceDependenceReactive = function (infDepData) {
             min: 0,
             max: numObj,
             plotLines: [{
-                color: 'rgba(50, 78, 162, 0.8)',
+                color: '#DDD',
                 value: numObj / 2,
                 width: 1
             }]
@@ -35,7 +32,7 @@ buildInfluenceDependenceReactive = function (infDepData) {
             gridLineColor: 'transparent',
             plotLines: [{
                 value: numObj / 2,
-                color: 'rgba(0, 140, 0, 0.6)',
+                color: '#DDD',
                 width: 1
             }]
         },
@@ -70,6 +67,9 @@ buildInfluenceDependenceReactive = function (infDepData) {
             name: 'Influence',
             color: 'rgba(223, 83, 83, .5)',
             data: infDepData
-        }]
+        }],
+        credits: {
+            enabled: false
+        }
     });
 }

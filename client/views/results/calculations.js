@@ -101,7 +101,6 @@ calculations = function(turn) {
 
     console.log(infDepData);
     console.log('Evi: ' + eviData);
-    console.log(probability);
     return {
         infDepData: infDepData,
         probability: probability.map(Number)
