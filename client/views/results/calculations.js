@@ -17,6 +17,7 @@ calculations = function(turn) {
             }, 0);
             influence.push(sum);
         }
+        console.log('influence: ' + influence);
         return influence;
     };
 
@@ -31,43 +32,36 @@ calculations = function(turn) {
                 return parseInt(memo) + parseInt(num);
             }, 0));
         });
+        console.log('dependence: ' + dependence);
         return dependence;
     };
 
-    /*var vector1 = function (inf, dep) {
-     var vector1 = [];
-     for (var k = 0; k < inf.length; k++) {
-     vector1.push((inf[k] + dep[k]) / 2);
-     }
-     return vector1;
-     };*/
+    var vector1 = function (inf, dep) {
+        var vector1 = [];
+        for (var k = 0; k < inf.length; k++) {
+            vector1.push(Math.sqrt(Math.pow(inf[k], 2) + Math.pow(dep[k], 2)).toFixed(2));
+        }
+        return vector1;
+    };
 
     var vector2 = function (inf, dep) {
         var vector2 = [];
-        for (var k = 0; k < inf.length; k++) {
-            vector2.push(Math.sqrt(Math.pow(inf[k], 2) + Math.pow(dep[k], 2)).toFixed(2));
+        var infProm = (inf.length - 1) / 2;
+        for (var m = 0; m < inf.length; m++) {
+            if (inf[m] > (infProm) && dep[m] < infProm) vector2.push(1);
+            else if (inf[m] > (infProm) && dep[m] > infProm) vector2.push(0.75);
+            else if (inf[m] < (infProm) && dep[m] > infProm) vector2.push(0.5);
+            else vector2.push(0.25);
         }
         return vector2;
     };
 
-    var vector3 = function (inf, dep) {
+    var vector3 = function (inf, vect2, vect3) {
         var vector3 = [];
-        var infProm = inf.length / 2;
-        for (var m = 0; m < inf.length; m++) {
-            if (inf[m] > (infProm) && dep[m] < infProm) vector3.push(1);
-            else if (inf[m] > (infProm) && dep[m] > infProm) vector3.push(0.75);
-            else if (inf[m] < (infProm) && dep[m] > infProm) vector3.push(0.5);
-            else vector3.push(0.25);
+        for (var n = 0; n < inf.length; n++) {
+            vector3.push((vect2[n] * vect3[n]).toFixed(2));
         }
         return vector3;
-    };
-
-    var vector4 = function (inf, vect2, vect3) {
-        var vector4 = [];
-        for (var n = 0; n < inf.length; n++) {
-            vector4.push((vect2[n] * vect3[n]).toFixed(2));
-        }
-        return vector4;
     };
 
     /*** Step 2 by user ***/
@@ -88,14 +82,14 @@ calculations = function(turn) {
     var dependenceData = dependence(conM);
     var infDepData = [];
     for (var r = 0; r < influenceData.length; r++) {
-        infDepData[r] = [influenceData[r], dependenceData[r]];
+        infDepData.push([dependenceData[r], influenceData[r]]);
     }
 
     //Probability
+    var vector1Data = vector1(influenceData, dependenceData);
     var vector2Data = vector2(influenceData, dependenceData);
-    var vector3Data = vector3(influenceData, dependenceData);
-    var vector4Data = vector4(influenceData, vector2Data, vector3Data);
-    var eviData = evi(conP, conM, vector4Data);
+    var vector3Data = vector3(influenceData, vector1Data, vector2Data);
+    var eviData = evi(conP, conM, vector3Data);
 
     var probability = [];
     var sumEvi = _.reduce(eviData, function (memo, num) {
@@ -105,6 +99,9 @@ calculations = function(turn) {
         probability.push(((e / sumEvi) * 100).toFixed(2));
     });
 
+    console.log(infDepData);
+    console.log('Evi: ' + eviData);
+    console.log(probability);
     return {
         infDepData: infDepData,
         probability: probability.map(Number)
