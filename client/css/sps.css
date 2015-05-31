@@ -1,5 +1,10 @@
 body {
 	padding-top: 35px;
+	color: #5B5B5B;
+}
+
+h2 {
+	font-size: 27px !important;
 }
 
 h3, .h3 {
@@ -34,14 +39,33 @@ h3, .h3 {
 	text-decoration: none !important;
 }
 
+.navbar-inverse {
+	background-color: #343947 !important;
+}
+
 .page-header-sps {
 	margin-top: 25px !important;
 	margin-left: 0 !important;
 	margin-right: 0 !important;
 }
 
+.footer {
+	margin-bottom: 150px;
+}
+
 .btn-action-sps {
 	padding: 3px 15px;
+}
+
+.table > thead > tr > th {
+	font-size: 14px !important;
+	padding: 4px 8px !important;
+	font-weight: 400 !important;
+}
+
+.table > tbody > tr > td {
+	font-size: 13px !important;
+	padding: 4px 8px !important;
 }
 
 .join-scenario {
@@ -88,6 +112,10 @@ h3, .h3 {
 
 .top-buffer {
 	margin-top: 10px;
+}
+
+.bottom-buffer {
+	margin-bottom: 15px;
 }
 
 .no-more-users {

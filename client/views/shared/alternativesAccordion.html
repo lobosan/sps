@@ -1,0 +1,22 @@
+<template name="alternativesAccordion">
+	<div class="collapse top-buffer" id="collapseAlternatives">
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+			<tr>
+				<th>Alternative</th>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{#each alternativesList}}
+				<tr class="objectiveRow">
+					<td class="col-md-1">Alt{{index}}</td>
+					<td class="col-md-4">{{name}}</td>
+					<td class="col-md-7">{{description}}</td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+	</div>
+</template>

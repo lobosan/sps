@@ -1,7 +1,7 @@
 <template name="alternatives">
-	<div class="container">
-		{{> header currentPage="Alternatives"}}
+	{{> header currentPage="Alternatives"}}
 
+	<div class="bottom-buffer">
 		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAlternative">
 			<i class="fa fa-plus-circle"></i> Add Alternative
 		</button>
@@ -12,9 +12,9 @@
 		<a class="btn btn-primary pull-right right-buffer" href="{{pathFor 'objectives'}}">
 			<i class="fa fa-chevron-circle-left"></i> Add Objectives
 		</a>
-
-		{{>alternativesTable}}
 	</div>
+
+	{{>alternativesTable}}
 
 	{{>addAlternative}}
 </template>

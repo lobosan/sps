@@ -1,69 +1,67 @@
 <template name="scenarios">
-	<div class="container">
-		<div class="row page-header page-header-sps">
-			<div class="col-md-10">
-				<h2>Scenarios</h2>
-			</div>
-			<div class="col-md-2 back-next-btn">
-				{{#if isActiveScenario}}
-					<span class="legend-active-scenario pull-right" title="Active Scenario">
-						<i class="active-scenario fa fa-toggle-on"></i> {{activeScenario.name}}
-						{{#if notEqual activeScenario.turn 0}}
-							- Turn: #{{activeScenario.turn}}
-						{{/if}}
-					</span>
-				{{/if}}
-			</div>
+	<div class="row page-header page-header-sps">
+		<div class="col-md-10">
+			<h2>Scenarios</h2>
 		</div>
-
-		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addScenario">
-			<i class="fa fa-plus-circle"></i> Add Scenario
-		</button>
-
-		<h3>Public scenarios</h3>
-		<table class="table table-bordered table-striped table-hover top-buffer">
-			<thead>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
-				<th>State</th>
-				<th>Scope</th>
-				<th>Turn</th>
-				<th>Created At</th>
-				<th class="text-center">Join</th>
-				<th class="text-center">Evaluate</th>
-				<th class="text-center">Results</th>
-			</tr>
-			</thead>
-			<tbody>
-			{{#each scenarioListPublic}}
-				{{>scenarioRow}}
-			{{/each}}
-			</tbody>
-		</table>
-
-		<h3>Private scenarios</h3>
-		<table class="table table-bordered table-striped table-hover top-buffer">
-			<thead>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
-				<th>State</th>
-				<th>Scope</th>
-				<th>Turn</th>
-				<th>Created At</th>
-				<th class="text-center">Join</th>
-				<th class="text-center">Evaluate</th>
-				<th class="text-center">Results</th>
-			</tr>
-			</thead>
-			<tbody>
-			{{#each scenarioListPrivate}}
-				{{>scenarioRow}}
-			{{/each}}
-			</tbody>
-		</table>
+		<div class="col-md-2 back-next-btn">
+			{{#if isActiveScenario}}
+				<span class="legend-active-scenario pull-right" title="Active Scenario">
+					<i class="active-scenario fa fa-toggle-on"></i> {{activeScenario.name}}
+					{{#if notEqual activeScenario.turn 0}}
+						- Turn: #{{activeScenario.turn}}
+					{{/if}}
+				</span>
+			{{/if}}
+		</div>
 	</div>
+
+	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addScenario">
+		<i class="fa fa-plus-circle"></i> Add Scenario
+	</button>
+
+	<h3>Public scenarios</h3>
+	<table class="table table-bordered table-striped table-hover top-buffer">
+		<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>State</th>
+			<th>Scope</th>
+			<th>Turn</th>
+			<th>Created At</th>
+			<th class="text-center">Join</th>
+			<th class="text-center">Evaluate</th>
+			<th class="text-center">Results</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{#each scenarioListPublic}}
+			{{>scenarioRow}}
+		{{/each}}
+		</tbody>
+	</table>
+
+	<h3>Private scenarios</h3>
+	<table class="table table-bordered table-striped table-hover top-buffer">
+		<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>State</th>
+			<th>Scope</th>
+			<th>Turn</th>
+			<th>Created At</th>
+			<th class="text-center">Join</th>
+			<th class="text-center">Evaluate</th>
+			<th class="text-center">Results</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{#each scenarioListPrivate}}
+			{{>scenarioRow}}
+		{{/each}}
+		</tbody>
+	</table>
 
 	{{>addScenario}}
 </template>

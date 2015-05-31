@@ -1,9 +1,9 @@
 <template name="inviteActors">
-	<div class="container">
-		{{> notifications}}
+	{{> notifications}}
 
-		{{> header currentPage="Invite Actors"}}
+	{{> header currentPage="Invite Actors"}}
 
+	<div class="bottom-buffer">
 		<button id="inviteActorsBtn" class="btn btn-success"><i class="fa fa-send"></i> Send Invitations</button>
 
 		{{#if isAdmin}}
@@ -18,27 +18,27 @@
 			<i class="fa fa-chevron-circle-left"></i> Add Alternatives
 		</a>
 		{{/if}}
-
-		{{#if actorList}}
-		<table class="table table-bordered table-striped table-hover top-buffer">
-			<thead>
-			<tr>
-				<th></th>
-				<th>Actor</th>
-			</tr>
-			</thead>
-			<tbody>
-			{{#each actorList}}
-				{{>actorRow}}
-			{{/each}}
-			</tbody>
-		</table>
-		{{else}}
-			<div class="no-more-users">
-				<h4>There's no more users to be invited</h4>
-			</div>
-		{{/if}}
 	</div>
+
+	{{#if actorList}}
+	<table class="table table-bordered table-striped table-hover top-buffer">
+		<thead>
+		<tr>
+			<th></th>
+			<th>Actor</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{#each actorList}}
+			{{>actorRow}}
+		{{/each}}
+		</tbody>
+	</table>
+	{{else}}
+		<div class="no-more-users">
+			<h4>There's no more users to be invited</h4>
+		</div>
+	{{/if}}
 </template>
 
 <template name="actorRow">

@@ -1,7 +1,7 @@
 <template name="results">
-	<div class="container">
-		{{> header currentPage = "Results"}}
+	{{> header currentPage = "Results"}}
 
+	<div class="bottom-buffer">
 		<button id="complete_values" type="button" class="btn btn-success pull-right">
 			<i class="fa fa-check-square-o"></i> Confirm Evaluation
 		</button>
@@ -12,8 +12,7 @@
 
 		<form class="form-inline">
 			<div class="form-group">
-				<label for="turn" class="control-label">Turn: </label>
-				<select name="turn" id="turn" class="form-control switcher-separator">
+				Turn: <select name="turn" id="turn" class="form-control switcher-separator">
 					<option value="" selected>Select one</option>
 					{{#each turns}}
 						<option value="{{turn}}">{{turn}}</option>
@@ -23,12 +22,12 @@
 				Alternatives {{> switcheryAlt}}
 			</div>
 		</form>
-
-		{{> objectivesAccordion}}
-		{{> alternativesAccordion}}
-
-		<div id="influence-dependence" class="top-buffer"></div>
-
-		<div id="probability" class="top-buffer"></div>
 	</div>
+
+	{{> objectivesAccordion}}
+	{{> alternativesAccordion}}
+
+	<div id="influence-dependence" class="top-buffer"></div>
+
+	<div id="probability" class="top-buffer"></div>
 </template>

@@ -1,17 +1,16 @@
 <template name="connectivity">
-	<div class="container">
-        {{> header currentPage = "Connectivity Matrix"}}
-
+	{{> header currentPage = "Connectivity Matrix"}}
+	<div class="bottom-buffer">
 		Objectives {{> switcheryObj}}
 		<!--<button id="remove-cm" type="button" class="btn btn-primary">Remove all</button>-->
 
 		<a class="btn btn-primary pull-right" href="{{pathFor 'probability'}}">
 			Probability Matrix <i class="fa fa-chevron-circle-right"></i>
 		</a>
+	</div>
 
-		{{> objectivesAccordion}}
+	{{> objectivesAccordion}}
 
-		<div class="handsontable top-buffer" id="connectivity-matrix">
-		</div>
+	<div class="handsontable top-buffer" id="connectivity-matrix">
 	</div>
 </template>

@@ -1,0 +1,68 @@
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+	<title>Scenario Planning System</title>
+</head>
+
+<template name="main">
+	{{> frame}}
+</template>
+
+<template name="frame">
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="{{pathFor 'home'}}">
+					<i id="logo-img"></i> {{appName}}
+				</a>
+			</div>
+
+			<div id="navbar" class="collapse navbar-collapse">
+				{{> optionsMenu}}
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		{{> yield}}
+	</div>
+	<div class="footer"></div>
+</template>
+
+<template name="optionsMenu">
+	<ul class="nav navbar-nav navbar-right">
+		{{#if currentUser}}
+			<li><a href="{{pathFor 'scenarios'}}"><i class="glyphicon glyphicon-road"></i> Scenarios</a></li>
+			<li><a href="{{pathFor 'objectives'}}"><i class="glyphicon glyphicon-check"></i> Objectives</a></li>
+			<li><a href="{{pathFor 'alternatives'}}"><i class="glyphicon glyphicon-transfer"></i> Alternatives</a></li>
+			<li><a href="{{pathFor 'inviteActors'}}"><i class="glyphicon glyphicon-envelope"></i> Guests</a></li>
+			{{#if isAdmin}}
+				<li><a href="{{pathFor 'adminScenario'}}"><i class="glyphicon glyphicon-flag"></i> Admin</a></li>
+			{{/if}}
+			{{#if equal evaluateScenario.state "Started"}}
+				<li><a href="{{pathFor 'connectivity'}}"><i class="glyphicon glyphicon-th"></i> Evaluation</a></li>
+			{{/if}}
+		{{/if}}
+		<li>{{> loginButtons}}</li>
+	</ul>
+</template>
+
+<template name="header">
+	<div class="row page-header page-header-sps">
+		<div class="col-md-10">
+			<h2>{{currentPage}}</h2>
+		</div>
+		<div class="col-md-2 back-next-btn">
+			<span class="legend-active-scenario pull-right" title="Active Scenario">
+				<i class="active-scenario fa fa-toggle-on"></i> {{activeScenario.name}}
+				{{#if notEqual activeScenario.turn 0}}
+					- Turn: #{{activeScenario.turn}}
+				{{/if}}
+			</span>
+		</div>
+	</div>
+</template>
