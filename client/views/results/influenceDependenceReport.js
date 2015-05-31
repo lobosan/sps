@@ -7,7 +7,7 @@ buildInfluenceDependenceReactive = function (infDepData) {
             type: 'scatter'
         },
         title: {
-            text: 'Influence - Dependence'
+            text: 'Connectivity'
         },
         xAxis: {
             title: {
@@ -65,7 +65,7 @@ buildInfluenceDependenceReactive = function (infDepData) {
         },
         series: [{
             name: 'Influence',
-            color: 'rgba(223, 83, 83, .5)',
+            color: 'rgba(72,194,169,0.8)',
             data: infDepData
         }],
         credits: {

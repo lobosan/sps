@@ -44,6 +44,7 @@ buildProbabilityReactive = function (probability) {
         },
         series: [{
             name: 'Probability',
+            color: 'rgba(72,194,169,0.8)',
             dataLabels: {
                 enabled: true,
                 color: '#FFFFFF',
