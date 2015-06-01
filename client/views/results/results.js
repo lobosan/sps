@@ -23,6 +23,7 @@ Template.results.onRendered(function () {
         buildInfluenceDependenceUser(results.infDepCurrentUser);
         buildProbabilityUser(results.probabilityCurrentUser);
         buildInfluenceDependenceGlobal(results.infDepGlobal);
+        buildProbabilityGlobal(results.probabilityGlobal);
     });
 });
 

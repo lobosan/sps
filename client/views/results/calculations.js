@@ -13,7 +13,7 @@ chartsDataUser = function (userId) {
         }, 0);
         influence.push(sum);
     }
-    console.log('influence: ' + influence);
+    //console.log('influence: ' + influence);
 
     // Dependence
     var dependence = [];
@@ -26,7 +26,7 @@ chartsDataUser = function (userId) {
             return parseInt(memo) + parseInt(num);
         }, 0));
     });
-    console.log('dependence: ' + dependence);
+    //console.log('dependence: ' + dependence);
 
     // Influencia Dependencia
     var infDepCurrentUser = [];
@@ -101,12 +101,14 @@ calculations = function () {
     //console.log(participantsId);
 
     var chartsCurrentUser = chartsDataUser(Meteor.userId());
+
     var infDepParticipants = [chartsCurrentUser.infDepCurrentUser];
     _.each(participantsId, function (participantId) {
         infDepParticipants.push(chartsDataUser(participantId).infDepCurrentUser);
     });
     //console.log(infDepParticipants);
 
+    // Influencia Dependencia Global
     var infDepGlobal = [];
     for (var j = 0; j < infDepParticipants[0].length; j++) {
         var temp1 = 0;
@@ -119,9 +121,27 @@ calculations = function () {
     }
     //console.log(infDepGlobal);
 
+    // Probabilidad Global
+    var probabilityParticipants = [chartsCurrentUser.probabilityCurrentUser];
+    _.each(participantsId, function (participantId) {
+        probabilityParticipants.push(chartsDataUser(participantId).probabilityCurrentUser);
+    });
+
+    var probabilityGlobal = [];
+    for (var j = 0; j < probabilityParticipants[0].length; j++) {
+        var temp = 0;
+        for (var i = 0; i < probabilityParticipants.length; i++) {
+            temp += probabilityParticipants[i][j];
+        }
+        probabilityGlobal.push(temp / 2);
+    }
+    //console.log(probabilityGlobal);
+
+
     return {
         infDepCurrentUser: chartsCurrentUser.infDepCurrentUser,
         probabilityCurrentUser: chartsCurrentUser.probabilityCurrentUser,
-        infDepGlobal: infDepGlobal
+        infDepGlobal: infDepGlobal,
+        probabilityGlobal: probabilityGlobal
     };
 };
