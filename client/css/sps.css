@@ -209,8 +209,6 @@ h3, .h3 {
 .highcharts-title {
 	color: #5B5B5B !important;
 	fill: #5B5B5B !important;
-	position: absolute !important;
-	left: 20px !important;
 }
 
 .highcharts-xaxis-labels > text {

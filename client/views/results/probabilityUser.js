@@ -1,7 +1,7 @@
-buildProbabilityReactive = function (probability) {
+buildProbabilityUser = function (probability) {
     return new Highcharts.Chart({
         chart: {
-            renderTo: 'probability',
+            renderTo: 'probability-user',
             type: 'column'
         },
         title: {
@@ -47,7 +47,6 @@ buildProbabilityReactive = function (probability) {
         series: [{
             name: 'Probability',
             color: 'rgba(126,167,181,0.8)',
-            //color: 'rgba(72,194,169,0.8)',
             dataLabels: {
                 enabled: true,
                 color: '#FFFFFF',

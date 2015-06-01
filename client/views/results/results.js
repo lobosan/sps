@@ -19,9 +19,10 @@ Template.results.onRendered(function () {
     Tracker.autorun(function () {
         if (this.$('#turn').val() == '')
             Session.set('turn', Scenarios.findOne({_id: Session.get('active_scenario')}).turn);
-        var results = calculations(Session.get('turn'));
-        buildInfluenceDependenceReactive(results.infDepData);
-        buildProbabilityReactive(results.probability);
+        var results = calculations();
+        buildInfluenceDependenceUser(results.infDepCurrentUser);
+        buildProbabilityUser(results.probabilityCurrentUser);
+        buildInfluenceDependenceGlobal(results.infDepGlobal);
     });
 });
 

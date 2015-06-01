@@ -1,9 +1,9 @@
-buildInfluenceDependenceReactive = function (infDepData) {
-    var numObj = ConnectivityMatrix.find({scenario_id: Session.get('active_scenario'), turn: Session.get('turn'), user_id: Meteor.userId()}, {sort: {created_at: 1}}).count();
+buildInfluenceDependenceUser = function (infDep) {
+    var numObj = infDep.length;
 
     return new Highcharts.Chart({
         chart: {
-            renderTo: 'influence-dependence',
+            renderTo: 'influence-dependence-user',
             type: 'scatter'
         },
         title: {
@@ -73,7 +73,7 @@ buildInfluenceDependenceReactive = function (infDepData) {
         series: [{
             name: 'Influence',
             color: 'rgba(126,167,181,0.8)',
-            data: infDepData
+            data: infDep
         }],
         credits: {
             enabled: false
