@@ -21,7 +21,6 @@ buildInfluenceDependenceUser = function (infDep) {
             tickLength: 0,
             min: 0,
             max: numObj,
-            tickInterval: 1,
             plotLines: [{
                 color: '#DDD',
                 value: numObj / 2,
@@ -35,7 +34,6 @@ buildInfluenceDependenceUser = function (infDep) {
             },
             min: 0,
             max: numObj,
-            tickInterval: 1,
             gridLineColor: 'transparent',
             plotLines: [{
                 value: numObj / 2,
