@@ -52,8 +52,8 @@ Template.adminScenario.events({
         var not_complete = _.contains(complete_values, 'No');
 
         if (not_complete && activeScenario.turn > 0) {
-            toastr.options = {"timeOut": "6000", "progressBar": true};
-            toastr.error('ERROR: Some guests have not confirmed their evaluation. You can send them an email to ask them to confirm');
+            toastr.options = {"timeOut": "7000", "progressBar": true};
+            toastr.error('Some guests have not confirmed their evaluation, you can send them an email to ask them to do it', 'Evaluations not confirmed');
         } else {
             var numObj = Objectives.find({scenario_id: Session.get('active_scenario')}).count();
             var numAlt = Alternatives.find({scenario_id: Session.get('active_scenario')}).count();
@@ -72,8 +72,8 @@ Template.adminScenario.events({
                 participants = author;
 
             if (numObj < 3 || numAlt < 3 || participants.length < 2) {
-                toastr.options = {"timeOut": "6000", "progressBar": true};
-                toastr.error('ERROR: Minimum 3 objectives, 3 alternatives and 2 participants are required to start the evaluation');
+                toastr.options = {"timeOut": "7000", "progressBar": true};
+                toastr.error('Minimum 3 objectives, 3 alternatives and 2 participants are required to start the evaluation', 'Requirements not met');
             } else if (activeScenario.turn < 1) {
                 Scenarios.update({_id: Session.get('active_scenario')}, {$set: {state: 'Started'}, $inc: {turn: 1}});
 
@@ -278,7 +278,8 @@ Template.adminScenario.events({
             }
         }
     },
-    'click #finish-evaluation': function () {
+    'click #finish-evaluation': function (evt) {
+        evt.preventDefault();
         var activeScenario = Scenarios.findOne({_id: Session.get('active_scenario')});
 
         var complete_values = [];
@@ -288,11 +289,27 @@ Template.adminScenario.events({
 
         var not_complete = _.contains(complete_values, 'No');
 
-        if (not_complete && activeScenario.turn > 0) {
-            toastr.options = {"timeOut": "6000", "progressBar": true};
-            toastr.error('ERROR: Some guests have not confirmed their evaluation. You can send them an email to ask them to confirm');
+        console.log(complete_values.length);
+
+        if (not_complete && activeScenario.turn > 0 || complete_values.length === 0) {
+            toastr.options = {"timeOut": "7000", "progressBar": true};
+            toastr.error('Some guests have not confirmed their evaluation, you can send them an email to ask them to do it', 'Evaluations not confirmed');
+            return false;
         } else {
-            Scenarios.update({_id: Session.get('active_scenario')}, {$set: {state: 'Finished'}});
+            swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to undo this operation",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, finish it!",
+                    closeOnConfirm: false
+                },
+                function () {
+                    Scenarios.update({_id: Session.get('active_scenario')}, {$set: {state: 'Finished'}});
+                    swal("Finished!", "Your scenario has been finished", "success");
+                }
+            );
         }
     }
 });

@@ -1,29 +1,3 @@
-Template.objectivesAccordion.helpers({
-    objectivesList: function () {
-        var objectives = Objectives.find({scenario_id: Session.get('active_scenario')}).fetch();
-        var objectivesList = [];
-        var index = 1;
-        _.each(objectives, function (objective) {
-            objectivesList.push({index: index, name: objective.name, description: objective.description});
-            index++;
-        });
-        return objectivesList;
-    }
-});
-
-Template.alternativesAccordion.helpers({
-    alternativesList: function () {
-        var alternatives = Alternatives.find({scenario_id: Session.get('active_scenario')}).fetch();
-        var alternativesList = [];
-        var index = 1;
-        _.each(alternatives, function (alternative) {
-            alternativesList.push({index: index, name: alternative.name, description: alternative.description});
-            index++;
-        });
-        return alternativesList;
-    }
-});
-
 Template.probability.rendered = function () {
 
     var elemObj = this.find('.js-switch-obj');
