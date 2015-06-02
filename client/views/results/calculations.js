@@ -38,7 +38,7 @@ chartsDataUser = function (userId) {
     // Vector 1
     var vector1 = [];
     for (var k = 0; k < influence.length; k++) {
-        vector1.push(Math.sqrt(Math.pow(influence[k], 2) + Math.pow(dependence[k], 2)).toFixed(2));
+        vector1.push(Math.sqrt(Math.pow(influence[k], 2) + Math.pow(dependence[k], 2)));
     }
     //console.log('vector1: ' + vector1);
 
@@ -56,7 +56,7 @@ chartsDataUser = function (userId) {
     // Vector 3
     var vector3 = [];
     for (var n = 0; n < influence.length; n++) {
-        vector3.push((vector1[n] * vector2[n]).toFixed(2));
+        vector3.push((vector1[n] * vector2[n]));
     }
     //console.log('vector3: ' + vector3);
 
@@ -68,7 +68,7 @@ chartsDataUser = function (userId) {
         for (var q = 0; q < conMatrixCurrentUser.length; q++) {
             tempEvi += ((parseInt(probMatrixCurrentUser[p]['p' + (q + 1)])) / 100) * vector3[q];
         }
-        evi.push(tempEvi.toFixed(2));
+        evi.push(tempEvi);
     }
     //console.log('evi: ' + evi);
 
@@ -109,15 +109,16 @@ calculations = function () {
     //console.log(infDepParticipants);
 
     // Influencia Dependencia Global
+    var numParticipants = infDepParticipants.length;
     var infDepGlobal = [];
     for (var j = 0; j < infDepParticipants[0].length; j++) {
         var temp1 = 0;
         var temp2 = 0;
-        for (var i = 0; i < infDepParticipants.length; i++) {
+        for (var i = 0; i < numParticipants; i++) {
             temp1 += infDepParticipants[i][j][0];
             temp2 += infDepParticipants[i][j][1];
         }
-        infDepGlobal.push([temp1 / 2, temp2 / 2]);
+        infDepGlobal.push([temp1 / numParticipants, temp2 / numParticipants]);
     }
     //console.log(infDepGlobal);
 
