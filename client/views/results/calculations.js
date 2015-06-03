@@ -78,9 +78,9 @@ chartsDataUser = function (userId) {
         return parseFloat(memo) + parseFloat(num);
     }, 0);
     _.each(evi, function (e) {
-        probabilityCurrentUser.push(parseInt(((e / sumEvi) * 100).toFixed(2)));
+        probabilityCurrentUser.push((e / sumEvi) * 100);
     });
-    //console.log('probability: ' + probabilityCurrentUser);
+    console.log(probabilityCurrentUser);
 
     return {
         infDepCurrentUser: infDepCurrentUser,
@@ -131,13 +131,12 @@ calculations = function () {
     var probabilityGlobal = [];
     for (var j = 0; j < probabilityParticipants[0].length; j++) {
         var temp = 0;
-        for (var i = 0; i < probabilityParticipants.length; i++) {
-            temp += probabilityParticipants[i][j];
-        }
+        _.each(probabilityParticipants, function (probPart) {
+            temp += probPart[j];
+        });
         probabilityGlobal.push(temp / 2);
     }
-    //console.log(probabilityGlobal);
-
+    console.log(probabilityGlobal);
 
     return {
         infDepCurrentUser: chartsCurrentUser.infDepCurrentUser,
