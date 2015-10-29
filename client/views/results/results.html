@@ -2,8 +2,6 @@
 	{{> header currentPage = "Results"}}
 
 	<div class="bottom-buffer">
-
-
 		<a class="btn btn-default pull-right" href="{{pathFor 'probability'}}">
 			<i class="fa fa-angle-double-left"></i> Probability Matrix
 		</a>
@@ -32,5 +30,7 @@
 	<div id="probability-user" class="top-buffer-medium"></div>
 
 	<div id="influence-dependence-global" class="top-buffer-medium"></div>
+    {{> objCoordGlobal}}
+
 	<div id="probability-global" class="top-buffer-medium"></div>
 </template>

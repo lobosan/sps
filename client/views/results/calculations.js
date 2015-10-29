@@ -80,7 +80,7 @@ chartsDataUser = function (userId) {
     _.each(evi, function (e) {
         probabilityCurrentUser.push((e / sumEvi) * 100);
     });
-    console.log(probabilityCurrentUser);
+    //console.log(probabilityCurrentUser);
 
     return {
         infDepCurrentUser: infDepCurrentUser,
@@ -120,6 +120,7 @@ calculations = function () {
         }
         infDepGlobal.push([temp1 / numParticipants, temp2 / numParticipants]);
     }
+    Session.set('infDepGlobal', infDepGlobal);
     //console.log(infDepGlobal);
 
     // Probabilidad Global
@@ -136,7 +137,7 @@ calculations = function () {
         });
         probabilityGlobal.push(temp / 2);
     }
-    console.log(probabilityGlobal);
+    //console.log(probabilityGlobal);
 
     return {
         infDepCurrentUser: chartsCurrentUser.infDepCurrentUser,
