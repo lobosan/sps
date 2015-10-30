@@ -34,6 +34,8 @@ Template.probability.rendered = function () {
         data: myData,
         colHeaders: colHeaders,
         rowHeaders: rowHeaders,
+        height: '450',
+        width: $('.container').width(),
         maxRows: numAlt,
         maxCols: numObj,
         columns: columns,

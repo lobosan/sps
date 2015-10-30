@@ -202,6 +202,7 @@ h3, .h3 {
 
 #connectivity-matrix, #probability-matrix {
 	font-size: 12px;
+	overflow: auto;
 }
 
 .highcharts-container > svg {
