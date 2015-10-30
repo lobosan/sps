@@ -6,14 +6,12 @@ Template.objectivesAccordion.helpers({
         } else {
             turn = Scenarios.findOne({_id: Session.get('active_scenario')}).turn;
         }
-        if (Session.get('infDepGlobal'))
-            var infDepGlobal = Session.get('infDepGlobal');
         var objectives = Objectives.find({scenario_id: Session.get('active_scenario'), turn: {$lte: turn}}).fetch();
         var objectivesList = [];
         var objectivesNames = [];
         var index = 1;
         _.each(objectives, function (objective) {
-            objectivesList.push({index: index, name: objective.name, description: objective.description, coord: infDepGlobal[index-1]});
+            objectivesList.push({index: index, name: objective.name, description: objective.description});
             objectivesNames.push({objName: objective.name});
             index++;
         });
