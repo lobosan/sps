@@ -1,4 +1,4 @@
-Template.connectivity.rendered = function () { // Runs when the DOM is ready
+Template.connectivity.onRendered(function () { // Runs when the DOM is ready
 
     var elem = this.find('.js-switch-obj');
     var init = new Switchery(elem);
@@ -63,7 +63,7 @@ Template.connectivity.rendered = function () { // Runs when the DOM is ready
         myData = ConnectivityMatrix.find({scenario_id: Session.get('active_scenario'), turn: scenarioTurn, user_id: Meteor.userId()}, {sort: {created_at: 1}}).fetch();  // Tie in our data
         hot.loadData(myData);
     });
-};
+});
 
 Template.connectivity.events({
     'click #remove-cm': function () {

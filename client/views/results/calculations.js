@@ -137,6 +137,7 @@ calculations = function () {
         });
         probabilityGlobal.push(temp / 2);
     }
+    Session.set('probGlobal', probabilityGlobal);
     //console.log(probabilityGlobal);
 
     return {

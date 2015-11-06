@@ -5,7 +5,7 @@ Template.objCoordGlobal.helpers({
             var objNamesGlobal = Session.get('objNamesGlobal');
             var objCoord = [];
             _.each(infDepGlobal, function (coordinates, key) {
-                objCoord.push({'objName': objNamesGlobal[key].objName, 'coordinates': coordinates.toString().replace(',', ', ')})
+                objCoord.push({'objName': objNamesGlobal[key].objName, 'coordinates': coordinates.toString().replace(',', ', ')});
             });
         }
         return objCoord;

@@ -14,7 +14,6 @@ aldeed:autoform
 u2622:persistent-session
 msavin:jetsetter
 msavin:mongol
-underscore
 fortawesome:fontawesome
 jquery
 momentjs:moment
@@ -38,3 +37,4 @@ ejson
 spacebars
 check
 kevohagan:sweetalert
+stevezhu:lodash

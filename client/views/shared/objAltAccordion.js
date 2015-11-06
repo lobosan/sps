@@ -30,11 +30,14 @@ Template.alternativesAccordion.helpers({
         }
         var alternatives = Alternatives.find({scenario_id: Session.get('active_scenario'), turn: {$lte: turn}}).fetch();
         var alternativesList = [];
+        var alternativesNames = [];
         var index = 1;
         _.each(alternatives, function (alternative) {
             alternativesList.push({index: index, name: alternative.name, description: alternative.description});
+            alternativesNames.push({altName: alternative.name});
             index++;
         });
+        Session.set('altNamesGlobal', alternativesNames);
         return alternativesList;
     }
 });

@@ -1,4 +1,4 @@
-Template.probability.rendered = function () {
+Template.probability.onRendered(function () {
 
     var elemObj = this.find('.js-switch-obj');
     var initObj = new Switchery(elemObj);
@@ -61,7 +61,7 @@ Template.probability.rendered = function () {
         //myData = ProbabilityMatrix.find({user_id: Meteor.userId(), turn: scenarioTurn}, {sort: {order: 1}}).fetch();  // Tie in our data
         hot.loadData(myData);
     });
-};
+});
 
 Template.probability.events({
     'click #remove-cm': function () {
