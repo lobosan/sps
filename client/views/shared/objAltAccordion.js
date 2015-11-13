@@ -24,7 +24,7 @@ Template.alternativesAccordion.helpers({
     alternativesList: function () {
         var turn;
         if (Router.current().route.getName() === 'results') {
-            turn = Session.get('turn')
+            turn = Session.get('turn');
         } else {
             turn = Scenarios.findOne({_id: Session.get('active_scenario')}).turn;
         }

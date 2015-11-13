@@ -139,6 +139,8 @@ calculations = function () {
     }
     Session.set('probGlobal', probabilityGlobal);
     //console.log(probabilityGlobal);
+    var total = _.reduce(probabilityGlobal, function(sum, el){ return sum + el; }, 0);
+    console.log(total);
 
     return {
         infDepCurrentUser: chartsCurrentUser.infDepCurrentUser,
