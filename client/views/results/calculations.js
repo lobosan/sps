@@ -89,21 +89,20 @@ chartsDataUser = function (userId) {
 };
 
 calculations = function () {
-    // Participants IDs
+    // Participant IDs
     var activeScenario = Scenarios.findOne({_id: Session.get('active_scenario')});
     var authorId = activeScenario.author;
     var guests = activeScenario.guests;
-    var participantsId = [authorId];
+    var participantIds = [authorId];
     _.each(guests, function (guest) {
-        participantsId.push(guest.userid);
+        participantIds.push(guest.userid);
     });
-    participantsId = _.without(participantsId, Meteor.userId());
-    //console.log(participantsId);
+    var otherParticipants = _.without(participantIds, Meteor.userId());
 
     var chartsCurrentUser = chartsDataUser(Meteor.userId());
 
     var infDepParticipants = [chartsCurrentUser.infDepCurrentUser];
-    _.each(participantsId, function (participantId) {
+    _.each(otherParticipants, function (participantId) {
         infDepParticipants.push(chartsDataUser(participantId).infDepCurrentUser);
     });
     //console.log(infDepParticipants);
@@ -125,7 +124,7 @@ calculations = function () {
 
     // Probabilidad Global
     var probabilityParticipants = [chartsCurrentUser.probabilityCurrentUser];
-    _.each(participantsId, function (participantId) {
+    _.each(otherParticipants, function (participantId) {
         probabilityParticipants.push(chartsDataUser(participantId).probabilityCurrentUser);
     });
 
@@ -135,7 +134,7 @@ calculations = function () {
         _.each(probabilityParticipants, function (probPart) {
             temp += probPart[j];
         });
-        probabilityGlobal.push(temp / 2);
+        probabilityGlobal.push(temp / participantIds.length);
     }
     Session.set('probGlobal', probabilityGlobal);
     //console.log(probabilityGlobal);
