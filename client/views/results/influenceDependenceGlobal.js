@@ -1,5 +1,7 @@
 buildInfluenceDependenceGlobal = function (infDep) {
-    var numObj = infDep.length;
+
+    var maxDep = _.max(_.pluck(infDep, 0));
+    var maxInf = _.max(_.pluck(infDep, 1));
 
     return new Highcharts.Chart({
         chart: {
@@ -20,10 +22,10 @@ buildInfluenceDependenceGlobal = function (infDep) {
             minorTickLength: 0,
             tickLength: 0,
             min: 0,
-            max: numObj,
+            max: maxDep,
             plotLines: [{
                 color: '#DDD',
-                value: numObj / 2,
+                value: maxDep / 2,
                 width: 1
             }]
         },
@@ -33,10 +35,10 @@ buildInfluenceDependenceGlobal = function (infDep) {
                 text: 'Influence'
             },
             min: 0,
-            max: numObj,
+            max: maxInf,
             gridLineColor: 'transparent',
             plotLines: [{
-                value: numObj / 2,
+                value: maxInf / 2,
                 color: '#DDD',
                 width: 1
             }]
