@@ -12,8 +12,6 @@ aldeed:collection2
 aldeed:simple-schema
 aldeed:autoform
 u2622:persistent-session
-msavin:jetsetter
-msavin:mongol
 fortawesome:fontawesome
 jquery
 momentjs:moment
@@ -38,3 +36,5 @@ spacebars
 check
 kevohagan:sweetalert
 stevezhu:lodash
+aldeed:tabular
+msavin:mongol

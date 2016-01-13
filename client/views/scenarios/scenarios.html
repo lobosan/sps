@@ -20,26 +20,7 @@
 	</button>
 
 	<h3>Public scenarios</h3>
-	<table class="table table-bordered table-striped table-hover top-buffer">
-		<thead>
-		<tr>
-			<th>Name</th>
-			<th>Description</th>
-			<th>State</th>
-			<th>Scope</th>
-			<th>Turn</th>
-			<th>Created At</th>
-			<th class="text-center">Join</th>
-			<th class="text-center">Evaluate</th>
-			<th class="text-center">Results</th>
-		</tr>
-		</thead>
-		<tbody>
-		{{#each scenarioListPublic}}
-			{{>scenarioRow}}
-		{{/each}}
-		</tbody>
-	</table>
+	{{> tabular table=TabularTables.PublicScenarios id="public-scenarios" class="table table-striped table-bordered table-condensed"}}
 
 	<h3>Private scenarios</h3>
 	<table class="table table-bordered table-striped table-hover top-buffer">
@@ -106,4 +87,32 @@
 			{{/if}}
 		</td>
 	</tr>
+</template>
+
+<template name="joinScenario">
+	{{#if isJoined}}
+		Joined
+	{{else}}
+		{{#if equal state "Open"}}
+			<button class="btn btn-default btn-action-sps join-scenario">JOIN</button>
+		{{else}}
+			-
+		{{/if}}
+	{{/if}}
+</template>
+
+<template name="evaluateScenario">
+	{{#if equal state "Started"}}
+		<a id="btn-connectivity-matrix" class="btn btn-default btn-action-sps fa fa-th evaluate" href="{{pathFor 'connectivity'}}"></a>
+	{{else}}
+		-
+	{{/if}}
+</template>
+
+<template name="resultsScenario">
+	{{#if notEqual state "Open"}}
+		<a class="btn btn-default btn-action-sps fa fa-bar-chart results" href="{{pathFor 'results'}}"></a>
+	{{else}}
+		-
+	{{/if}}
 </template>
