@@ -1,92 +1,34 @@
 <template name="scenarios">
+	{{>addScenario}}
+
 	<div class="row page-header page-header-sps">
-		<div class="col-md-10">
+		<div class="pull-left">
 			<h2>Scenarios</h2>
 		</div>
-		<div class="col-md-2 back-next-btn">
+		<div class="pull-right back-next-btn">
 			{{#if isActiveScenario}}
-				<span class="legend-active-scenario pull-right" title="Active Scenario">
+				<span class="legend-active-scenario" title="Active Scenario">
 					<i class="active-scenario fa fa-toggle-on"></i> {{activeScenario.name}}
-					{{#if notEqual activeScenario.turn 0}}
-						- Turn: #{{activeScenario.turn}}
-					{{/if}}
+					{{#if notEqual activeScenario.turn 0}} - Turn: #{{activeScenario.turn}}{{/if}}
 				</span>
 			{{/if}}
 		</div>
 	</div>
 
-	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addScenario">
-		<i class="fa fa-plus-circle"></i> Add Scenario
-	</button>
+	<div class="clearfix">
+		<h3 class="pull-left bottom-buffer">Public scenarios</h3>
+		<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#addScenario">
+			<i class="fa fa-plus-circle"></i> Add Scenario
+		</button>
+	</div>
 
-	<h3>Public scenarios</h3>
-	{{> tabular table=TabularTables.PublicScenarios id="public-scenarios" class="table table-striped table-bordered table-condensed"}}
+	{{> tabular table=TabularTables.PublicScenarios class="table table-striped table-bordered table-condensed"}}
 
-	<h3>Private scenarios</h3>
-	<table class="table table-bordered table-striped table-hover top-buffer">
-		<thead>
-		<tr>
-			<th>Name</th>
-			<th>Description</th>
-			<th>State</th>
-			<th>Scope</th>
-			<th>Turn</th>
-			<th>Created At</th>
-			<th class="text-center">Join</th>
-			<th class="text-center">Evaluate</th>
-			<th class="text-center">Results</th>
-		</tr>
-		</thead>
-		<tbody>
-		{{#each scenarioListPrivate}}
-			{{>scenarioRow}}
-		{{/each}}
-		</tbody>
-	</table>
+	<h3 class="bottom-buffer">Private scenarios</h3>
+	{{> tabular table=TabularTables.PrivateScenarios class="table table-striped table-bordered table-condensed"}}
 
-	{{>addScenario}}
-</template>
-
-<template name="scenarioRow">
-	<tr class="scenarioRow" data-toggle="modal" data-target="#orderModal">
-		<td class="col-md-3 {{#if isJoined}}scenario-name{{else}}scenario-disabled{{/if}}" title="{{activeScenarioTitle _id}}">
-		{{#if isJoined}}
-			<i class="{{activeScenarioHighlight _id}}"></i> {{name}}
-		{{else}}
-			{{name}}
-		{{/if}}
-		</td>
-		<td class="col-md-3">{{description}}</td>
-		<td class="col-md-1">{{state}}</td>
-		<td class="col-md-1">{{scope}}</td>
-		<td class="col-md-1">{{turn}}</td>
-		<td class="col-md-1">{{formatTime creation_date}}</td>
-		<td class="col-md-1 text-center">
-		{{#if isJoined}}
-			Joined
-		{{else}}
-			{{#if equal state "Open"}}
-				<button class="btn btn-default btn-action-sps join-scenario">JOIN</button>
-			{{else}}
-				-
-			{{/if}}
-		{{/if}}
-		</td>
-		<td class="col-md-1 text-center">
-			{{#if equal state "Started"}}
-				<a id="btn-connectivity-matrix" class="btn btn-default btn-action-sps fa fa-th evaluate" href="{{pathFor 'connectivity'}}"></a>
-			{{else}}
-				-
-			{{/if}}
-		</td>
-		<td class="col-md-1 text-center">
-			{{#if notEqual state "Open"}}
-				<a class="btn btn-default btn-action-sps fa fa-bar-chart results" href="{{pathFor 'results'}}"></a>
-			{{else}}
-				-
-			{{/if}}
-		</td>
-	</tr>
+	<h3 class="bottom-buffer">Current scenarios</h3>
+	{{> tabular table=TabularTables.CurrentScenarios class="table table-striped table-bordered table-condensed"}}
 </template>
 
 <template name="joinScenario">

@@ -1,12 +1,13 @@
 Meteor.publish('scenarioList', function () {
-    return Scenarios.find({
+    return Scenarios.find({});
+    /*return Scenarios.find({
             $or: [
                 {author: this.userId},
                 {scope: 'Public'},
                 {'guests.userid': this.userId}
             ]
         }
-    );
+    );*/
 });
 
 Meteor.methods({

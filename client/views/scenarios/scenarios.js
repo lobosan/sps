@@ -1,6 +1,6 @@
 Meteor.subscribe('scenarioList');
 
-var isUserJoined = function (rowId) {
+isUserJoined = function (rowId) {
     var scenarioRow = Scenarios.findOne({_id: rowId});
     var guests_ids = [];
     _.each(scenarioRow.guests, function (guest) {
@@ -15,23 +15,6 @@ var isUserJoined = function (rowId) {
         return false;
     }
 };
-
-Template.scenarios.helpers({
-    scenarioListPrivate: function () {
-        return Scenarios.find({scope: 'Private'}, {sort: {creation_date: -1}});
-    }
-});
-
-Template.scenarioRow.helpers({
-    activeScenario: function () {
-        if (!(Session.get('active_scenario') === undefined || Session.get('active_scenario') === null)) {
-            return Session.get('active_scenario');
-        }
-    },
-    isJoined: function () {
-        return isUserJoined(this._id);
-    }
-});
 
 Template.joinScenario.helpers({
     isJoined: function () {
