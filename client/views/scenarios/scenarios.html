@@ -16,19 +16,18 @@
 	</div>
 
 	<div class="clearfix">
-		<h3 class="pull-left bottom-buffer">Public scenarios</h3>
+		<h3 class="pull-left bottom-buffer">Current scenarios</h3>
 		<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#addScenario">
 			<i class="fa fa-plus-circle"></i> Add Scenario
 		</button>
 	</div>
+	{{> tabular table=TabularTables.CurrentScenarios class="table table-striped table-bordered table-condensed"}}
 
+	<h3 class="bottom-buffer">Public scenarios</h3>
 	{{> tabular table=TabularTables.PublicScenarios class="table table-striped table-bordered table-condensed"}}
 
 	<h3 class="bottom-buffer">Private scenarios</h3>
 	{{> tabular table=TabularTables.PrivateScenarios class="table table-striped table-bordered table-condensed"}}
-
-	<h3 class="bottom-buffer">Current scenarios</h3>
-	{{> tabular table=TabularTables.CurrentScenarios class="table table-striped table-bordered table-condensed"}}
 </template>
 
 <template name="joinScenario">

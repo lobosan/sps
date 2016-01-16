@@ -95,6 +95,74 @@ Scenarios.attachSchema(new SimpleSchema({
     }
 }));
 
+TabularTables.CurrentScenarios = new Tabular.Table({
+    name: "CurrentScenarios",
+    collection: Scenarios,
+    selector: function (userId) {
+        return {
+            $and: [
+                {state: {$ne: 'Finished'}},
+                {
+                    $or: [
+                        {author: userId},
+                        {'guests.userid': userId}
+                    ]
+                }
+            ]
+        };
+    },
+    order: [[4, "desc"]],
+    responsive: true,
+    autoWidth: false,
+    columnDefs: [{
+        targets: 0,
+        createdCell: function (td, cellData, rowData, row, col) {
+            (isUserJoined(rowData._id)) ? $(td).addClass('scenario-name') : $(td).addClass('scenario-disabled');
+        }
+    }],
+    columns: [
+        {
+            data: "name",
+            title: "Name",
+            render: function (val, type, doc) {
+                return Session.get('active_scenario') === doc._id ? '<i class="active-scenario fa fa-toggle-on"></i> ' + val : val;
+            }
+        },
+        {data: "description", title: "Description"},
+        {data: "state", title: "State"},
+        {data: "turn", title: "Turn"},
+        {
+            data: "creation_date",
+            title: "Created At",
+            render: function (val, type, doc) {
+                if (val instanceof Date) {
+                    return moment(val).format('DD/MM/YYYY');
+                } else {
+                    return "Never";
+                }
+            }
+        },
+        {
+            title: "Join",
+            className: "text-center",
+            orderable: false,
+            tmpl: Meteor.isClient && Template.joinScenario
+        },
+        {
+            title: "Evaluate",
+            className: "text-center",
+            orderable: false,
+            tmpl: Meteor.isClient && Template.evaluateScenario
+        },
+        {
+            title: "Results",
+            className: "text-center",
+            orderable: false,
+            tmpl: Meteor.isClient && Template.resultsScenario
+        }
+    ]
+});
+
 TabularTables.PublicScenarios = new Tabular.Table({
     name: "PublicScenarios",
     collection: Scenarios,
@@ -156,69 +224,10 @@ TabularTables.PublicScenarios = new Tabular.Table({
 TabularTables.PrivateScenarios = new Tabular.Table({
     name: "PrivateScenarios",
     collection: Scenarios,
-    selector: function () {
-        return {scope: 'Private'}
-    },
-    order: [[4, "desc"]],
-    responsive: true,
-    autoWidth: false,
-    columnDefs: [{
-        targets: 0,
-        createdCell: function (td, cellData, rowData, row, col) {
-            (isUserJoined(rowData._id)) ? $(td).addClass('scenario-name') : $(td).addClass('scenario-disabled');
-        }
-    }],
-    columns: [
-        {
-            data: "name",
-            title: "Name",
-            render: function (val, type, doc) {
-                return Session.get('active_scenario') === doc._id ? '<i class="active-scenario fa fa-toggle-on"></i> ' + val : val;
-            }
-        },
-        {data: "description", title: "Description"},
-        {data: "state", title: "State"},
-        {data: "turn", title: "Turn"},
-        {
-            data: "creation_date",
-            title: "Created At",
-            render: function (val, type, doc) {
-                if (val instanceof Date) {
-                    return moment(val).format('DD/MM/YYYY');
-                } else {
-                    return "Never";
-                }
-            }
-        },
-        {
-            title: "Join",
-            className: "text-center",
-            orderable: false,
-            tmpl: Meteor.isClient && Template.joinScenario
-        },
-        {
-            title: "Evaluate",
-            className: "text-center",
-            orderable: false,
-            tmpl: Meteor.isClient && Template.evaluateScenario
-        },
-        {
-            title: "Results",
-            className: "text-center",
-            orderable: false,
-            tmpl: Meteor.isClient && Template.resultsScenario
-        }
-    ]
-});
-
-
-TabularTables.CurrentScenarios = new Tabular.Table({
-    name: "CurrentScenarios",
-    collection: Scenarios,
     selector: function (userId) {
         return {
             $and: [
-                {state: {$ne: 'Finished'}},
+                {scope: 'Private'},
                 {
                     $or: [
                         {author: userId},
@@ -226,7 +235,7 @@ TabularTables.CurrentScenarios = new Tabular.Table({
                     ]
                 }
             ]
-        };
+        }
     },
     order: [[4, "desc"]],
     responsive: true,
