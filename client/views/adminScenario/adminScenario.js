@@ -75,97 +75,111 @@ Template.adminScenario.events({
                 toastr.options = {"timeOut": "7000", "progressBar": true};
                 toastr.error('Minimum 3 objectives, 3 alternatives and 2 participants are required to start the evaluation', 'Requirements not met');
             } else if (activeScenario.turn < 1) {
-                Scenarios.update({_id: Session.get('active_scenario')}, {$set: {state: 'Started'}, $inc: {turn: 1}});
+                swal({
+                        title: "Are you sure?",
+                        text: "Please confirm that all the participants are registered in the scenario",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, I'm sure!",
+                        closeOnConfirm: false
+                    },
+                    function () {
+                        Scenarios.update({_id: Session.get('active_scenario')}, {$set: {state: 'Started'}, $inc: {turn: 1}});
 
-                /*** Connectivity Matrix ***/
-                var arrayDiag = [];
-                for (var i = 0; i < numObj; i++) {
-                    arrayDiag.push('x');
-                }
-                var diagMat = numeric.diag(arrayDiag);
+                        /*** Connectivity Matrix ***/
+                        var arrayDiag = [];
+                        for (var i = 0; i < numObj; i++) {
+                            arrayDiag.push('x');
+                        }
+                        var diagMat = numeric.diag(arrayDiag);
 
-                var newMat = [];
-                for (var p = 0; p < participants.length; p++) {
-                    for (var i = 0; i < diagMat.length; i++) {
-                        newMat.push([
-                            Scenarios.findOne({_id: Session.get('active_scenario')})._id,
-                            Scenarios.findOne({_id: Session.get('active_scenario')}).turn,
-                            participants[p]
-                        ].concat(diagMat[i]));
-                    }
-                }
+                        var newMat = [];
+                        for (var p = 0; p < participants.length; p++) {
+                            for (var i = 0; i < diagMat.length; i++) {
+                                newMat.push([
+                                    Scenarios.findOne({_id: Session.get('active_scenario')})._id,
+                                    Scenarios.findOne({_id: Session.get('active_scenario')}).turn,
+                                    participants[p]
+                                ].concat(diagMat[i]));
+                            }
+                        }
 
-                var conMat = [];
-                var orderIni = 1;
+                        var conMat = [];
+                        var orderIni = 1;
 
-                for (var i = 0; i < newMat.length; i++) {
-                    conMat[i] = {};
-                    conMat[i]['scenario_id'] = newMat[i][0];
-                    conMat[i]['turn'] = newMat[i][1];
-                    conMat[i]['user_id'] = newMat[i][2];
-                    conMat[i]['created_at'] = i;
-                    if (orderIni <= numObj) {
-                        conMat[i]['order'] = orderIni;
-                        orderIni++;
-                    } else {
+                        for (var i = 0; i < newMat.length; i++) {
+                            conMat[i] = {};
+                            conMat[i]['scenario_id'] = newMat[i][0];
+                            conMat[i]['turn'] = newMat[i][1];
+                            conMat[i]['user_id'] = newMat[i][2];
+                            conMat[i]['created_at'] = i;
+                            if (orderIni <= numObj) {
+                                conMat[i]['order'] = orderIni;
+                                orderIni++;
+                            } else {
+                                orderIni = 1;
+                                conMat[i]['order'] = orderIni;
+                                orderIni++;
+                            }
+                            for (var j = 1; j <= numObj; j++) {
+                                conMat[i]['o' + j] = newMat[i][j + 2];
+                            }
+                        }
+                        console.log(conMat);
+
+                        _.each(conMat, function (doc) {
+                            ConnectivityMatrix.insert(doc);
+                        });
+                        /*** End Connectivity Matrix ***/
+
+                        /*** Probability Matrix ***/
+                        var arrayMat = numeric.rep([numAlt, numObj], 0);
+
+                        var newMatP = [];
+
+                        for (var p = 0; p < participants.length; p++) {
+                            for (var i = 0; i < arrayMat.length; i++) {
+                                newMatP.push([
+                                    Scenarios.findOne({_id: Session.get('active_scenario')})._id,
+                                    Scenarios.findOne({_id: Session.get('active_scenario')}).turn,
+                                    participants[p]
+                                ].concat(arrayMat[i]));
+                            }
+                        }
+
+                        var probMat = [];
                         orderIni = 1;
-                        conMat[i]['order'] = orderIni;
-                        orderIni++;
+
+                        for (var i = 0; i < newMatP.length; i++) {
+                            probMat[i] = {};
+                            probMat[i]['scenario_id'] = newMatP[i][0];
+                            probMat[i]['turn'] = newMatP[i][1];
+                            probMat[i]['user_id'] = newMatP[i][2];
+                            probMat[i]['created_at'] = i;
+                            if (orderIni <= numAlt) {
+                                probMat[i]['order'] = orderIni;
+                                orderIni++;
+                            } else {
+                                orderIni = 1;
+                                probMat[i]['order'] = orderIni;
+                                orderIni++;
+                            }
+                            for (var j = 1; j <= numObj; j++) {
+                                probMat[i]['p' + j] = newMatP[i][j + 2];
+                            }
+                        }
+
+                        console.log(probMat);
+                        _.each(probMat, function (doc) {
+                            ProbabilityMatrix.insert(doc);
+                        });
+                        /*** End Probability Matrix ***/
+
+                        Router.go('connectivity');
+                        swal("Started!", "Your scenario has been started", "success");
                     }
-                    for (var j = 1; j <= numObj; j++) {
-                        conMat[i]['o' + j] = newMat[i][j + 2];
-                    }
-                }
-
-                _.each(conMat, function (doc) {
-                    ConnectivityMatrix.insert(doc);
-                });
-                /*** End Connectivity Matrix ***/
-
-                /*** Probability Matrix ***/
-                var arrayMat = numeric.rep([numAlt, numObj], 0);
-
-                var newMatP = [];
-
-                for (var p = 0; p < participants.length; p++) {
-                    for (var i = 0; i < arrayMat.length; i++) {
-                        newMatP.push([
-                            Scenarios.findOne({_id: Session.get('active_scenario')})._id,
-                            Scenarios.findOne({_id: Session.get('active_scenario')}).turn,
-                            participants[p]
-                        ].concat(arrayMat[i]));
-                    }
-                }
-
-                var probMat = [];
-                orderIni = 1;
-
-                for (var i = 0; i < newMatP.length; i++) {
-                    probMat[i] = {};
-                    probMat[i]['scenario_id'] = newMatP[i][0];
-                    probMat[i]['turn'] = newMatP[i][1];
-                    probMat[i]['user_id'] = newMatP[i][2];
-                    probMat[i]['created_at'] = i;
-                    if (orderIni <= numAlt) {
-                        probMat[i]['order'] = orderIni;
-                        orderIni++;
-                    } else {
-                        orderIni = 1;
-                        probMat[i]['order'] = orderIni;
-                        orderIni++;
-                    }
-                    for (var j = 1; j <= numObj; j++) {
-                        probMat[i]['p' + j] = newMatP[i][j + 2];
-                    }
-                }
-
-                _.each(probMat, function (doc) {
-                    ProbabilityMatrix.insert(doc);
-                });
-                /*** End Probability Matrix ***/
-
-                Router.go('connectivity');
-
+                );
             } else if (activeScenario.turn >= 1) {
                 /*** Update turn and list of guests ***/
                 Scenarios.update({_id: Session.get('active_scenario')}, {$inc: {turn: 1}});
