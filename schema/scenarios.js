@@ -143,7 +143,7 @@ TabularTables.CurrentScenarios = new Tabular.Table({
             }
         },
         {
-            title: "Join",
+            title: "Participation",
             className: "text-center",
             orderable: false,
             tmpl: Meteor.isClient && Template.joinScenario
@@ -201,7 +201,7 @@ TabularTables.PublicScenarios = new Tabular.Table({
             }
         },
         {
-            title: "Join",
+            title: "Participation",
             className: "text-center",
             orderable: false,
             tmpl: Meteor.isClient && Template.joinScenario
@@ -269,7 +269,7 @@ TabularTables.PrivateScenarios = new Tabular.Table({
             }
         },
         {
-            title: "Join",
+            title: "Participation",
             className: "text-center",
             orderable: false,
             tmpl: Meteor.isClient && Template.joinScenario

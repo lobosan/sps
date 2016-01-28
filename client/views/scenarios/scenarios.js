@@ -19,6 +19,18 @@ isUserJoined = function (rowId) {
 Template.joinScenario.helpers({
     isJoined: function () {
         return isUserJoined(this._id);
+    },
+    isAuthor: function () {
+        var scenarioRow = Scenarios.findOne({_id: this._id});
+        if (Meteor.userId() === scenarioRow.author) return true;
+    },
+    isGuest: function () {
+        var scenarioRow = Scenarios.findOne({_id: this._id});
+        var guests_ids = [];
+        _.each(scenarioRow.guests, function (guest) {
+            guests_ids.push(guest.userid);
+        });
+        if (_.contains(guests_ids, Meteor.userId())) return true;
     }
 });
 
@@ -53,6 +65,19 @@ Template.joinScenario.events({
                 'guests': {
                     'userid': Meteor.userId(),
                     'complete_values': 'No'
+                }
+            }
+        });
+    },
+    'click .leave-scenario': function (evt, tmpl) {
+        Session.update('active_scenario', null);
+        Session.setAuth('active_scenario', null);
+        $('.scenario-name').removeClass('active-scenario');
+
+        Scenarios.update({_id: this._id}, {
+            $pull: {
+                'guests': {
+                    'userid': Meteor.userId()
                 }
             }
         });

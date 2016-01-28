@@ -31,15 +31,21 @@
 </template>
 
 <template name="joinScenario">
-	{{#if isJoined}}
-		Joined
-	{{else}}
+	{{#if isAuthor}}Owner{{/if}}
+	{{#if isGuest}}
+		{{#if equal state "Open"}}
+			<button class="btn btn-default btn-action-sps leave-scenario">LEAVE</button>
+		{{else}}
+			Joined
+		{{/if}}
+	{{/if}}
+	{{#unless isJoined}}
 		{{#if equal state "Open"}}
 			<button class="btn btn-default btn-action-sps join-scenario">JOIN</button>
 		{{else}}
 			-
 		{{/if}}
-	{{/if}}
+	{{/unless}}
 </template>
 
 <template name="evaluateScenario">
