@@ -59,7 +59,7 @@ Scenarios.attachSchema(new SimpleSchema({
         type: Date,
         autoValue: function () {
             if (this.isInsert) {
-                return new Date;
+                return new Date();
             } else {
                 this.unset();
             }
@@ -167,7 +167,7 @@ TabularTables.PublicScenarios = new Tabular.Table({
     name: "PublicScenarios",
     collection: Scenarios,
     selector: function () {
-        return {scope: 'Public'}
+        return {scope: 'Public'};
     },
     order: [[4, "desc"]],
     responsive: true,
@@ -235,7 +235,7 @@ TabularTables.PrivateScenarios = new Tabular.Table({
                     ]
                 }
             ]
-        }
+        };
     },
     order: [[4, "desc"]],
     responsive: true,
