@@ -62,7 +62,7 @@ Scenarios.attachSchema(new SimpleSchema({
     type: Date,
     autoValue: function() {
       if (this.isInsert) {
-        return new Date;
+        return new Date();
       } else {
         this.unset();
       }
