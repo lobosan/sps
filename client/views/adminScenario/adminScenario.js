@@ -46,7 +46,7 @@ Template.adminScenario.events({
 
         var complete_values = [];
         _.each(activeScenario.guests, function (guest) {
-           complete_values.push(guest.complete_values);
+            complete_values.push(guest.complete_values);
         });
 
         var not_complete = _.contains(complete_values, 'No');
@@ -188,6 +188,17 @@ Template.adminScenario.events({
                 _.each(activeScenario.guests, function (guest) {
                     guests_ids.push(guest.userid);
                 });
+
+                Meteor.call('notifyNextTurn', activeScenario.name, activeScenario.description, guests_ids, function (error, response) {
+                    if (error) {
+                        toastr.options = {"timeOut": "6000", "progressBar": true};
+                        toastr.error('Uh oh, something went wrong', 'ERROR');
+                    } else {
+                        toastr.options = {"timeOut": "6000", "progressBar": true};
+                        toastr.success('All guests have been notified by email about the next turn', 'Notifications sent');
+                    }
+                });
+
                 _.each(guests_ids, function (guest_id) {
                     Meteor.call('updateCompletedValues', Session.get('active_scenario'), guest_id, 'No');
                 });
@@ -214,12 +225,12 @@ Template.adminScenario.events({
                     if (objsNextTurn > 0) {
                         var conNewDim = objsPreviousTurns + objsNextTurn;
                         for (j = objsPreviousTurns + 1; j <= conNewDim; j++) {
-                            conMatrix[c]['o'+ j] = 0;
+                            conMatrix[c]['o' + j] = 0;
                         }
                     }
                     ConnectivityMatrix.insert(conMatrix[c]);
-                    order ++;
-                    created_at ++;
+                    order++;
+                    created_at++;
                     if ((c + 1) % objsPreviousTurns == 0) {
                         for (var k = 0; k < objsNextTurn; k++) {
                             var temp = {};
@@ -258,12 +269,12 @@ Template.adminScenario.events({
                     if (objsNextTurn > 0) {
                         var probNewDim = objsPreviousTurns + objsNextTurn;
                         for (j = objsPreviousTurns + 1; j <= probNewDim; j++) {
-                            probMatrix[c]['p'+ j] = 0;
+                            probMatrix[c]['p' + j] = 0;
                         }
                     }
                     ProbabilityMatrix.insert(probMatrix[c]);
-                    order ++;
-                    created_at ++;
+                    order++;
+                    created_at++;
 
                     if ((c + 1) % altsPreviousTurns == 0 && altsNextTurn > 0) {
                         for (k = 0; k < altsNextTurn; k++) {
